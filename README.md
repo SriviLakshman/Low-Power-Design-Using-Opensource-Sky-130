@@ -45,7 +45,7 @@ Low power is critical to most chips in this age. In this project, an introductio
 2. **Cooling Costs of CPUs**
   - Gaming enthusiasts are aware that in order to maximize the performance of your CPU, it is necessary to provide the best cooling solution which is caoable of wicking away the heat from the CPUs as fast as it is produced. The theory is simple, in that, while doing performance intensive tasks (like gaming), the CPU/GPU is under full load which causes it to heat rapidly. As CPUs generally cannot sustain these higher temperatures for long periods of time as it will damage the components, the performance is throttled in order to reduce the heat. Thus a well cooled CPU is capable of sustaining peak performance for longer periods of time. 
   - Modern cooling solutions are a plenty with a multitude of options. CPUs can be either air cooled (by using radiators) or water cooled (by using pumps and resevoirs) or even active cooling using thermoelectric devices (this is even present in some latest gaming phones). Costs for each of these components can range anywhere from $50 to $200 depending upon the configuration
-  - Thus it is easily seen that there is a price to pay for sustained performance in order to  
+  - Thus it is easily seen that there is a price to pay for sustained performance and this arises purely due to power considerations
 
 
 
