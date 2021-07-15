@@ -47,7 +47,40 @@ Low power is critical to most chips in this age. In this project, an introductio
   - Modern cooling solutions are a plenty with a multitude of options. CPUs can be either air cooled (by using radiators) or water cooled (by using pumps and resevoirs) or even active cooling using thermoelectric devices (this is even present in some latest gaming phones). Costs for each of these components can range anywhere from $50 to $200 depending upon the configuration
   - Thus it is easily seen that there is a price to pay for sustained performance and this arises purely due to power considerations
 
+3. **Battery degradation in the iPhone6**
+ - It is well documented that Apple admitted to slowing down its iPhone6 through software updates to prevent the phones which had degraded batteries from completely shutting down when under high load
+ - This seems to be a classic case of "delivery" problem, wherein the power delivery is not robust enough to supply the required voltage to the different componenets of the phone in order to keep working. 
+ - It is possible that as the batteries grew weaker with age, it was not capable of delivering the required supply to keep the phone operational. This led Apple to slow the phone down so as to not tax the system and put the power into a state of high load. 
 
+# Macro Perspective and Energy Principles
+ - The fundamental principles that one has to be aware of while doing low power is to balance the **density,delivery,leakage,reliability**. In essence,
+ - Cant pack too much power into one space (Density)
+ - Need to deliver the load (Delivery)
+ - Able to handle any fluctuations in the demand quickly
+ - Product needs to be long lasting
+
+# CMOS Refresher 
+ - A CMOS is an example of a Voltage Controlled Current Source (VCCS), wherein Vg is applied to turn it on and the output current is proportional to the applied Vgs
+ - Voltage Control has become the #1 choice for power management -> as we can control the voltage and the associated current
+ - Some basic power management techniques:
+       - Clock Gating : Reduces the switching capacitance (also activity factor)
+       - Multi Threshold : Vary the speed and leakage of the circuit
+  - Technology migration does not solve the power issue -> Smaller nodes have a huge leakage problem, also less reliable.
+
+1. Operational Regions of CMOS
+  - As opposed to the conventional thinking that the CMOS has only 2 states (an on/off), it is useful to consider it has 3 states for low power regions
+  - The usual on and off states with a **standby** state which can be thought as a middle ground between off and on where there is state retention but we cannot do any operations on the same (insert LP-13)
+
+2. The 7 degrees of voltage control (insert LP-14)
+ - A CMOS has 7 degrees of voltage control. VDD, VSS, SLPP, SLPN, VBBP, VBBN, VRET
+
+3. Range of voltage control techniques
+     - Multi-VDD : Divide the entire design into different blocks each operating at a different fixed voltage
+     - Low VDD Standby : Blocks not in use currently are put in "Standby" mode at lower VDD, just enough to retain state but not shut off
+     - MTCMOS Power Gating : Similar to Multi-VDD except we place some Power switches that is capable of shutting down the blocks when not in use. Called power gating as this technique requires power gating transistors (usually HVT to reduce leakage)
+     - Retention : Similar to power gating but with some retention logic (as power gating will make you lose state) 
+     - Back Bias : Tweaking bulk voltage to control Vt. Used for memories
+     - Dynamic Voltage Frequency Scaling : Changing voltage according to power needs dynamically
 
 # Day 3
 
