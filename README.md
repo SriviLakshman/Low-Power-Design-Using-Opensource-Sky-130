@@ -48,6 +48,9 @@ Low power is critical to most chips in this age. In this project, an introductio
   - Thus it is easily seen that there is a price to pay for sustained performance in order to  
 
 
+
+# Day 3
+
 # Deep dive into State Space
 
  1. **Power State Space, State Transitions and State Space Verification** 
