@@ -75,12 +75,54 @@ Low power is critical to most chips in this age. In this project, an introductio
  - A CMOS has 7 degrees of voltage control. VDD, VSS, SLPP, SLPN, VBBP, VBBN, VRET
 
 3. Range of voltage control techniques
-     - Multi-VDD : Divide the entire design into different blocks each operating at a different fixed voltage
+     - Multi-VDD : Divide the entire design into different blocks each operating at a different fixed voltage. This is a **spatial** variation
      - Low VDD Standby : Blocks not in use currently are put in "Standby" mode at lower VDD, just enough to retain state but not shut off
-     - MTCMOS Power Gating : Similar to Multi-VDD except we place some Power switches that is capable of shutting down the blocks when not in use. Called power gating as this technique requires power gating transistors (usually HVT to reduce leakage)
+     - MTCMOS Power Gating : Similar to Multi-VDD except we place some Power switches that is capable of shutting down the blocks when not in use. Called power gating as this technique requires power gating transistors (usually HVT to reduce leakage). This is a **spatial and temporal (as the same block turns on and off at different times)** variation. 
      - Retention : Similar to power gating but with some retention logic (as power gating will make you lose state) 
-     - Back Bias : Tweaking bulk voltage to control Vt. Used for memories
+     - Back Bias : Tweaking bulk voltage to control Vt. Used for memories. Note: We either tweak BBN or BBP to adjust the Vt and hence try to control leakage
      - Dynamic Voltage Frequency Scaling : Changing voltage according to power needs dynamically
+
+# Day 2
+
+# Voltage Control Techniques
+ - This is a deeper analysis of the techniques already discussed in the previous section. 
+ - **Power Gating** 
+       - Basically shutting down the power to inactive blocks
+       - Use power switches to accomplish this
+       - Take care to isolate the outputs/inputs with Iso cells/Level shifters to prevent corruption in ON region.
+       - Costly shutdown and wakeup cycles
+- **Retention**
+       - Used in conjunction with power gating
+       - Special retention registers are used to hold the data in a shadow latch when the main power is turned off
+       - Can quickly restore state on power up
+ - **Dynamic Voltage Scaling**
+       - Dynamic variation of voltage as and when required
+ - **Low-VDD Standby**
+        - Put block in a low voltage just enough to retain state
+
+# State Retention and Verification
+    
+   - Power gating without retention means that all registers in the system lose their state
+   - Means they need to be re-initialized once powered up
+   - This has both a time cost and an energy cost to re-acquire the context 
+   - Thus it is advantageous to save and restore state -> but this comes at a cost also (area required/reponse latencies/standby power)
+   - Retention Strategies can either be in hardware or software
+        -**Software Retention Strategies**
+             - Operating system intrusive
+             - CPU can execute an architectural state save code -> Like windows "Hibernate" -> this dumps everything into memory and shuts down
+         -**Hardware Retention Strategies**
+              - SRPG : Registers can be replaced by dedicated state retention registers
+              - Scan-based hibernate : Reuse scan chains to shift in/out
+              - Voltage Scale or Body Bias logic and registers 
+              - All require a defined "Sleep/Wake"request protocol. 
+  
+  # System Level State Retention Verification Challenges
+  
+  - When is it safe to stop and request state saving mode?
+  - Who handles these processes? Is it the OS/CPU? 
+  - Is the retained state integrity 100% guaranteed? -> Any corruption could lead to deadlock/errors
+  - When is it safe to restore state? -> Need to ensure that the rails are stable and safe
+
 
 # Day 3
 
