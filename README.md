@@ -204,4 +204,11 @@ Low power is critical to most chips in this age. In this project, an introductio
             - When design is normally operational, there is no big burden of 4 LARGE transistors (requires more drive, more area, more power etc). So small inverter loop will suffice
             - Also when the design is off, we dont want the big capacitance of the original FF/latch to drain out the content of the storage latch. Possible improvements to the architecture done to give a Shadow latch with Vret -> whereby shadow latch is powered with a different VDD and high VT transistors (Vret). But distributing different rails (VDD and Vret was expensive). So layout further changed to SRPG -> State Retention Power Gating FFs
         
-        
+ # Day 4
+ 
+ # Voltage Aware Booleans
+ 
+ - It is instructive to simulate a few circuits to grasp the concept of the challenges involved with multi voltage designs. Let us consider an CMOS buffer made by chaining back-to-back inverters. Let us supply each inverter with a different Vdd and see if the output is able to track the input. 
+ 
+ - Simulation Circuit and Parameters 
+ 
