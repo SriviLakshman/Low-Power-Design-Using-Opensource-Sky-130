@@ -214,4 +214,13 @@ Low power is critical to most chips in this age. In this project, an introductio
  ![Circuit Schematic](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/1.PNG)
  
  - Simulation Parameters. We assume all Pmos and Nmos transistors have the same length. The channel width of the pmos is twice that of the nmos to approximate equal the rise and fall times of the inverter
+ - Simulation is done using ngspice
+ - Case 1: Let the first stage and the second stage use the same Vdd of 1.8V. The input signal is also 1.8V. We can see from the ouput graphs that the output follows the input and the voltages remain the same as well. This is the default expected behaviour of a CMOS buffer
+ ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/BufferSameVdd.PNG)
+ - Case 2: Let the first stage use Vdd = 1.8V and the second stage use Vdd = 3.0V. The input signal is also 1.8V. In this case too we can see that the output tracks the input. Note however that the output is at 3V as compared to the input signal at 1.8V. This in effect means that the output from the first inverter stage is within the noise margin for the second inverter stage and so samples the output correctly.
+  ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/BufferCase2.PNG)
+ - Case 3: Let us repeat Case 2 but with the input signal at 0.5V. We know that this voltage in generally corresponds to a logic 0 (As it is < 30% of 1.8V, which is the strongest 1). In this case, we see that the output is unable to track the input. This is most likely as the output voltage (logic 1) from the first stage is still too low compared to the voltage levels required for the second stage. Thus, there is an aberration here.
+  ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/BufferCase3.PNG) 
+
+
  
