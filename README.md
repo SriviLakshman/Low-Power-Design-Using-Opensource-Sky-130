@@ -211,4 +211,7 @@ Low power is critical to most chips in this age. In this project, an introductio
  - It is instructive to simulate a few circuits to grasp the concept of the challenges involved with multi voltage designs. Let us consider an CMOS buffer made by chaining back-to-back inverters. Let us supply each inverter with a different Vdd and see if the output is able to track the input. 
  
  - Simulation Circuit and Parameters 
+ ![Circuit Schematic](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/1.PNG)
+ 
+ - Simulation Parameters. We assume all Pmos and Nmos transistors have the same length. The channel width of the pmos is twice that of the nmos to approximate equal the rise and fall times of the inverter
  
