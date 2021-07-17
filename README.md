@@ -227,5 +227,12 @@ Low power is critical to most chips in this age. In this project, an introductio
     ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/BufferCase5.PNG)
       ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/BufferCase5-2.PNG) 
 
+- Thus multi-voltage circuits require the presence of elements such as level shifters that are able to step-up/step-down voltages to ensure that the voltages are translated properly. 
+- Now, let us look at some other circuits 
+
+# Common Power Management Schemes on ARM Based SOCs
+
+- 
+
 
  
