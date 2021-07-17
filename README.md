@@ -221,6 +221,11 @@ Low power is critical to most chips in this age. In this project, an introductio
   ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/BufferCase2.PNG)
  - Case 3: Let us repeat Case 2 but with the input signal at 0.5V. We know that this voltage in generally corresponds to a logic 0 (As it is < 30% of 1.8V, which is the strongest 1). In this case, we see that the output is unable to track the input. This is most likely as the output voltage (logic 1) from the first stage is still too low compared to the voltage levels required for the second stage. Thus, there is an aberration here.
   ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/BufferCase3.PNG) 
+  - Case 4: Let the first stage use Vdd = 3.0V and the second stage use Vdd = 1.8V. The input signal is 3.0V. This case is more straightforward as the signal is moving from high voltage domain to a low voltage domain. As the input signal is also at a high level, we can see the output tracks the input and we are able to get the full 1.8V at the output (corresponding to a strong logic 1).
+    ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/BufferCase4.PNG) 
+  - Case 5: Let us repeat Case 4 but with the input signal voltage Vin = 0.9V. This again corresponds to a logic 0 for stage 1 (as 0.9V = 30% of 3V). Again we see that the output is not able to track the input. This is because the output of stage 1 is a logic 1 (which is tracking around 3V, we see that the second stage is not really able to pull the voltage down as much we want it to in order to affect the logic), thus the overall output is a logic 0. Which is incorrect.
+    ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/BufferCase5.PNG)
+      ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/BufferCase5-2.PNG) 
 
 
  
