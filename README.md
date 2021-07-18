@@ -232,7 +232,37 @@ Low power is critical to most chips in this age. In this project, an introductio
 
 # Common Power Management Schemes on ARM Based SOCs
 
-- 
+- A typical mobile SOC consists of :
+      - One or more ARM cores
+      - Blocks that can be independently controlled
+      - Hardware power management unit
+      - Software driver for power management functions
+      - Essentially a loop between System/Software, IC/SOC and the Voltage Regulators
+  
+ - Bug Classification
+    - Structural Errors
+        - Missing Isolation, level shifters
+        - Devices in wrong domains
+        - Wrong rail connects 
+        - These can be found through simple static checks
+      
+     - Control Errors
+         - Mistimes control signals
+         - Incorrect control activation sequence
+         - Incorrect gating/ungating in off/low power states
+        
+      - Architectural Errors
+         - Incorrect partitions,policies
+         - Incorrect scheduling of resources
 
+   - Thus, it is seen that the power management increases the complexity of verification
+    ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/LP-81.PNG)
+    
+    - It is also noted that multi-voltage verification coverage is different compared to to traditional verification
+     ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/LP-82.PNG)
 
- 
+    - So in order to completely verify a MV design, it is necessary to have both **static and dynamic checks**. The following image shows an example of the different domains that need to be considered in verifying a rudimentary phone. It can be seen that as the complexity rises, the verification complexity also explodes.
+   ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/LP-83.PNG)
+   
+   - So a modern Power aware flow can be done as shown in the figure below. **Multi voltage rule checks (MVRCs) and Multi voltage simulations (MVSIM) are done throughout the different stages of the flow** to ensure that the design is adequately covered for low power checks/issues. 
+     ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/LP-84.PNG) 
