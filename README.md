@@ -82,7 +82,41 @@ Low power is critical to most chips in this age. In this project, an introductio
      - Back Bias : Tweaking bulk voltage to control Vt. Used for memories. Note: We either tweak BBN or BBP to adjust the Vt and hence try to control leakage
      - Dynamic Voltage Frequency Scaling : Changing voltage according to power needs dynamically
 
-# Day 2
+# Low Power Fundamentals
+
+- We know that the **voltage** dominates the CMOS power equations. So the focus should always be on trying to reduce the voltage/turn off supply when not in use
+- A generic system can be one as shown in the following figure . It is seen that an activity by any of these componenets will generate systemic activity
+![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/LP-19.PNG) 
+    - Like humans invoking apps
+    - Background OS activity
+    - Periodic syncing
+ - But it can also be considered as another view
+ ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/LP-21.PNG) 
+ - **Thus, we can conclude that the power of a hardware resource is not a constant -> There is no single power number!** The same hardware resources can have different power numbers based on the operating modes. For example: A CPU in low power mode may consume 20W but the same at high performance mode may consume 30W. 
+
+# Low Power Design Rules 
+
+ - **Srikanths 1st law of low power design -> If it is not beneficial to the system, dont do it**
+ - **Lowest Possible Voltage Principle** -> Apply the lowest possible Vdd to each functional block, at each instant of time
+ - **Off by Default Rules** -> Turn on a block only when needed. Turn it off once it is not needed.  
+
+# Low Power Design Vs Power Management
+
+- It is useful to compare the differences between low power design and power management. The figure below does the same. (LP-28)
+![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/LP-28.PNG) 
+- In conclusion, In all low power designs, it is critical to balance **density, delivery,leakage and lifetime*
+![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/LP-30.PNG) 
+![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/LP-31.PNG) 
+![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/LP-32.PNG) 
+
+-Thus, the **modern paradigm of low power design**
+
+    - Design functional blocks amenable to power management (LP Design)
+    - Design circuits around blocks to facilitate the use of LP modes
+    - Provide hooks to power management units and software to schedule LP modes
+    - Manage power, performance, temperature, battery - all in one 'place'
+
+
 
 # Voltage Control Techniques
  - This is a deeper analysis of the techniques already discussed in the previous section. 
@@ -123,8 +157,6 @@ Low power is critical to most chips in this age. In this project, an introductio
   - Is the retained state integrity 100% guaranteed? -> Any corruption could lead to deadlock/errors
   - When is it safe to restore state? -> Need to ensure that the rails are stable and safe
 
-
-# Day 3
 
 # Deep dive into State Space
 
@@ -208,8 +240,6 @@ Low power is critical to most chips in this age. In this project, an introductio
             - Where we tap the output of the original latch with the help of a small inverter loop (with maybe a save/restore control). This is advatabgeous as
             - When design is normally operational, there is no big burden of 4 LARGE transistors (requires more drive, more area, more power etc). So small inverter loop will suffice
             - Also when the design is off, we dont want the big capacitance of the original FF/latch to drain out the content of the storage latch. Possible improvements to the architecture done to give a Shadow latch with Vret -> whereby shadow latch is powered with a different VDD and high VT transistors (Vret). But distributing different rails (VDD and Vret was expensive). So layout further changed to SRPG -> State Retention Power Gating FFs
-        
- # Day 4
  
  # Voltage Aware Booleans
  
