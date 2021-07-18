@@ -69,10 +69,10 @@ Low power is critical to most chips in this age. In this project, an introductio
 
 1. Operational Regions of CMOS
   - As opposed to the conventional thinking that the CMOS has only 2 states (an on/off), it is useful to consider it has 3 states for low power regions
-  - The usual on and off states with a **standby** state which can be thought as a middle ground between off and on where there is state retention but we cannot do any operations on the same (insert LP-13)
-
-2. The 7 degrees of voltage control (insert LP-14)
+  - The usual on and off states with a **standby** state which can be thought as a middle ground between off and on where there is state retention but we cannot do any operations on the same
+   ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/LP-13.PNG) 
  - A CMOS has 7 degrees of voltage control. VDD, VSS, SLPP, SLPN, VBBP, VBBN, VRET
+    ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/LP-14.PNG) 
 
 3. Range of voltage control techniques
      - Multi-VDD : Divide the entire design into different blocks each operating at a different fixed voltage. This is a **spatial** variation
@@ -137,24 +137,28 @@ Low power is critical to most chips in this age. In this project, an introductio
       - Completeness of state retention 
 
   
-  - For example, consider a rudimentary phone which has the following 3 modes (Insert LP-50). These modes can be :
+  - For example, consider a rudimentary phone which has the following 3 modes. These modes can be :
       - Standby : For when there is no activity happening 
       - Phone : For when the user is either calling/ receiving a call
       - Multimedia: For when the user is watching multimedia content (photos/videos) 
+         ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/LP-50.PNG) 
 
-  - The components of the phone can also be broken down as follows (Insert LP-51). 
+  - The components of the phone can also be broken down as follows.
+     ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/LP-51.PNG)  
   - So for example, when the phone is in Standby mode -> CPU is in standby, Video is off, Modem is in standby, Audio is off, Display is off
   - Similarly, when the phone is receiving a call -> CPU is in normal, Video is in off/normal, Modem is in normal, Audio is on and Display is off
   - And when the phone is in Multimedia mode -> CPU is in high-performance(HP), Video is in HP, Modem is standby, Audio is off/normal and Display is normal 
   - The real challenge is to verify what happens when the phone goes from one mode to another (For example, if the phone goes from Multimedia mode to Standby mode -> then we need to turn off all the componenents safely). This is the challenge of Dynamic verification -> especially as the number of components/states of each component increases
 
-  - An example of a power state transition is shown below (Insert LP-55).It is seen that the system requires to go through a multitude of states. For eg: To go from standby to HP, it is first needed for the system to be restored to normal level (VDD-1.5V) and then stepped up to HP (VDD-3V). Also whenever the system steps-up/down between modes, there are also a lot of associated actions that need to happen (like the PLL stepping up/down, clock gating turning on/off etc). 
+  - An example of a power state transition is shown below.It is seen that the system requires to go through a multitude of states. For eg: To go from standby to HP, it is first needed for the system to be restored to normal level (VDD-1.5V) and then stepped up to HP (VDD-3V). Also whenever the system steps-up/down between modes, there are also a lot of associated actions that need to happen (like the PLL stepping up/down, clock gating turning on/off etc). 
+     ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/LP-55.PNG) 
   - Thus, it is necessary to have some power management firmware to implement specific sequences (this also ensures that the total space is reduced -> can optimize for lesser variables)
   - Note however that the PM firmware must **NOT be modified** after being verified.   
 
 
 2. **Elements of a Low Power Testbench**  
-  - In order to develop a low power testbench for a DUT -> it is necessary to have some power aware components around it (Like a power mangement block -> which is capable of interacting with the DUT). A typical LP testbench is shown in the following figure (LP-58)
+  - In order to develop a low power testbench for a DUT -> it is necessary to have some power aware components around it (Like a power mangement block -> which is capable of interacting with the DUT). A typical LP testbench is shown in the following figure
+     ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/LP-58.PNG) 
   - After the test bench is setup, we can move on to verifying the design 
     - Step 1: Verify the always ON part of the design first -> This follows the traditional verification principles and will leave only the power management issues for the low power verification.
     - This also allows using the testbench you have already generated to be used for LP verification (with some incremental modification to cover the missing areas)
@@ -169,7 +173,7 @@ Low power is critical to most chips in this age. In this project, an introductio
 # Basics of MultiVoltage Terminology
 
 4. **Fundamentals of Rails, Multi-VDD and Islands**
-   - From figure (LP-14), it is seen that there are 7 different signals to control a CMOS. These include the VDD,VSS,SLPP,SLPN,BBN,BBP,VRET (which is used for retaining the states upon restore) -> these can also be called as the **7-Rails Model of CMOS logic**. These are all-you-need to control the CMOS logic
+   - From the figure above, it is seen that there are 7 different signals to control a CMOS. These include the VDD,VSS,SLPP,SLPN,BBN,BBP,VRET (which is used for retaining the states upon restore) -> these can also be called as the **7-Rails Model of CMOS logic**. These are all-you-need to control the CMOS logic
    - Rail
      - Output of a voltage source (like a battery, charge pump, voltage regulator) used to drive logic
    - Multi-VDD :
@@ -183,7 +187,8 @@ Low power is critical to most chips in this age. In this project, an introductio
      - Domain :
          -  It is defined as the drain of the driver. As in what charges/discharges the gate in question. Who (from which domain) causes a logic 1 on this gate
       - Well :
-          - If the blocks have the same BBP/BBN rail -> then there are said to be same well. (Refer LP-68)
+          - If the blocks have the same BBP/BBN rail -> then there are said to be same well.
+           ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/LP-68.PNG) 
       - MTCMOS Power Gating :
          - Stands for Multi-threshold CMOS
          - Basically using a HVT header/footer cell in order to reduce the leakage when the block is off.
@@ -266,3 +271,33 @@ Low power is critical to most chips in this age. In this project, an introductio
    
    - So a modern Power aware flow can be done as shown in the figure below. **Multi voltage rule checks (MVRCs) and Multi voltage simulations (MVSIM) are done throughout the different stages of the flow** to ensure that the design is adequately covered for low power checks/issues. 
      ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/LP-84.PNG) 
+    
+   # Island Ordering 
+   
+   - It is a mathematical concept of spatial and temporal dependencies. We partition different blocks into power domains (spatial) and these also vary with time (temporal)
+   - It is non-trivial as the spatial connectivity can also depend on the temporal states and vice-versa
+   - Can be used to statically detect dependencies that lead to deadlock
+   - Below shows a diagram which shows how different islands can be ordered. An island A is considered to be > than an island B if island A is On for island B to be on. Essentially, If A > B, then B is not allowed to be on WHEN A is off. Rest all conditions are accpetable. 
+    ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/LP-85.PNG) 
+   - In simple terms, if A is relatively more ON than B, then A > B
+   - **While designing for multi voltage designs -> Is it key to note that no control signal shall pass from a lower order island to a higher order island**
+         - Control signals include -> Clk, Clk_en, Rst, Pwr_gate, Iso_en etc
+         - There can also be other signals specific to the given design
+    - If A=off, B=on and A=on, B=off are both possible, then A and B are **disjoint islands**
+    - If A and B are identical on/off all the time, they are **equivalent**
+    - Note : Identical might not necessarily be in the same domain as they may be operated at different voltages (Eg: A is Vdd 1.5V and B is Vdd 1.0V)
+
+    - **Do not send control signals between disoint islands**
+    - **Also look to minimize the signal interchange between them -> as it leads to excess isolation gates**
+    - It is also necessary to beware of software dependencies
+        - Sometimes it is possible that the software can place a block in standby and then read that register somewehere else -> this might return the isolated/parked values which might corrupt the logic
+         - It is useful to build software in such a way that it is able to maintain a consistent view of unavailable resources across various applications
+
+# Mobile and Mobility
+
+- Mobile refers to the device-level innovation
+- It is the untethering of devices from fixed locations
+- Mobility refers to the migration of services from fixed locations
+- For eg: Mobile apps that can do banking/shopping/ordering etc
+- Mobile enables data whereas mobility generated data and also uses them (like location-based services)
+- **Mobile can make or break mobility**
