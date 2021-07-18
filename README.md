@@ -263,7 +263,11 @@ Low power is critical to most chips in this age. In this project, an introductio
       ![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/BufferCase5-2.PNG) 
 
 - Thus multi-voltage circuits require the presence of elements such as level shifters that are able to step-up/step-down voltages to ensure that the voltages are translated properly. 
-- Now, let us look at some other circuits 
+- Now, let us look at some other circuits. Let us take the case of a NAND2 gate as shown in the figure below 
+![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/Nand2.PNG)
+![image](https://github.com/SriviLakshman/Low-Power-Design-Using-Opensource-Sky-130/blob/main/Images-LPWorkshop/Nand2Wave.PNG)
+
+- From the simulation, we can see that we are varying V1 and V2 from 0.7V and 0.8V onwards, whereas we vary V3 down from 1.8V 
 
 # Common Power Management Schemes on ARM Based SOCs
 
